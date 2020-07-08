@@ -4,6 +4,13 @@ resource "aws_api_gateway_rest_api" "api" {
   description              = "API for ${var.name}"
   binary_media_types       = var.binary_type
   minimum_compression_size = var.minimum_compression_size
+
+  policy = var.endpoint_type == "PRIVATE" ? data.aws_iam_policy_document.private.json : ""
+
+  endpoint_configuration {
+    types = [var.endpoint_type]
+    vpc_endpoint_ids = var.endpoint_type == "PRIVATE" ? [var.vpc_private_endpoint_id] : []
+  }
 }
 
 resource "aws_api_gateway_resource" "proxy" {

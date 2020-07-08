@@ -29,3 +29,15 @@ variable "lambda_arn" {
 variable "lambda_arn_invoke" {
   description = "The lambda invoke uri"
 }
+
+variable "endpoint_type" {
+  type = string
+  description = "The endpoint type supported by the RestApi: [https://www.terraform.io/docs/providers/aws/r/api_gateway_rest_api.html#types]"
+  default = "EDGE"
+}
+
+variable "vpc_private_endpoint_id" {
+  type = string
+  description = "The VPC endpoint id used to connect to a Private API Gateway"
+  default = ""
+}
